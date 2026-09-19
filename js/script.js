@@ -229,97 +229,79 @@
   }
 
   /* ============================================================
-     5. INTERACTIVE 3D CANVAS IN INTRO SECTION
+     5. THE PILLARS STANDARD — 3D PARALLAX & CARDS INTERACTION
      ============================================================ */
-  const intro3DCanvas = document.getElementById("intro3DCanvas");
-  if (intro3DCanvas) {
-    const ctx = intro3DCanvas.getContext("2d");
-    let angleY = 0;
-    let angleX = 0;
+  const pillarsStandardSection = document.getElementById("about");
+  const skylineCards = [
+    document.getElementById("skylineCard1"),
+    document.getElementById("skylineCard2"),
+    document.getElementById("skylineCard3"),
+    document.getElementById("skylineCard4")
+  ].filter(Boolean);
 
-    function resizeIntroCanvas() {
-      const rect = intro3DCanvas.parentElement.getBoundingClientRect();
-      intro3DCanvas.width = rect.width;
-      intro3DCanvas.height = rect.height;
-    }
-    resizeIntroCanvas();
-    window.addEventListener("resize", resizeIntroCanvas);
+  if (pillarsStandardSection && skylineCards.length > 0) {
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    let isHovering = false;
 
-    // 3D Pillars Mesh Vertices
-    const pillarNodes = [
-      { x: -100, y: -80, z: -100 }, { x: -40, y: -80, z: -100 }, { x: -40, y: 100, z: -100 }, { x: -100, y: 100, z: -100 },
-      { x: -100, y: -80, z: -40 }, { x: -40, y: -80, z: -40 }, { x: -40, y: 100, z: -40 }, { x: -100, y: 100, z: -40 },
+    pillarsStandardSection.addEventListener("mousemove", (e) => {
+      const rect = pillarsStandardSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      mouseX = (x - rect.width / 2) / (rect.width / 2);
+      mouseY = (y - rect.height / 2) / (rect.height / 2);
+      isHovering = true;
+    });
 
-      { x: -30, y: -110, z: 0 }, { x: 30, y: -110, z: 0 }, { x: 30, y: 100, z: 0 }, { x: -30, y: 100, z: 0 },
-      { x: -30, y: -110, z: 60 }, { x: 30, y: -110, z: 60 }, { x: 30, y: 100, z: 60 }, { x: -30, y: 100, z: 60 },
+    pillarsStandardSection.addEventListener("mouseleave", () => {
+      mouseX = 0;
+      mouseY = 0;
+      isHovering = false;
+    });
 
-      { x: 40, y: -60, z: 100 }, { x: 100, y: -60, z: 100 }, { x: 100, y: 100, z: 100 }, { x: 40, y: 100, z: 100 },
-      { x: 40, y: -60, z: 160 }, { x: 100, y: -60, z: 160 }, { x: 100, y: 100, z: 160 }, { x: 40, y: 100, z: 160 }
-    ];
+    const depths = [14, 9, 16, 11];
 
-    function project(x, y, z, cx, cy) {
-      const radY = angleY;
-      const radX = angleX;
+    function animateSkylineParallax() {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
 
-      // Rotate around Y
-      let x1 = x * Math.cos(radY) - z * Math.sin(radY);
-      let z1 = z * Math.cos(radY) + x * Math.sin(radY);
-
-      // Rotate around X
-      let y2 = y * Math.cos(radX) - z1 * Math.sin(radX);
-      let z2 = z1 * Math.cos(radX) + y * Math.sin(radX);
-
-      const perspective = 400 / (400 + z2);
-      return {
-        px: cx + x1 * perspective,
-        py: cy + y2 * perspective,
-        scale: perspective
-      };
-    }
-
-    function render3DPillars() {
-      ctx.clearRect(0, 0, intro3DCanvas.width, intro3DCanvas.height);
-      angleY += 0.008;
-      angleX = Math.sin(angleY * 0.5) * 0.15 + 0.1;
-
-      const cx = intro3DCanvas.width / 2;
-      const cy = intro3DCanvas.height / 2 + 10;
-
-      const projected = pillarNodes.map(node => project(node.x, node.y, node.z, cx, cy));
-
-      // Draw connecting wireframe lines
-      ctx.strokeStyle = "rgba(95, 214, 255, 0.35)";
-      ctx.lineWidth = 1.2;
-
-      for (let i = 0; i < projected.length; i += 8) {
-        for (let j = 0; j < 4; j++) {
-          const p1 = projected[i + j];
-          const p2 = projected[i + ((j + 1) % 4)];
-          const p3 = projected[i + j + 4];
-          const p4 = projected[i + ((j + 1) % 4) + 4];
-
-          ctx.beginPath();
-          ctx.moveTo(p1.px, p1.py); ctx.lineTo(p2.px, p2.py);
-          ctx.moveTo(p1.px, p1.py); ctx.lineTo(p3.px, p3.py);
-          ctx.moveTo(p3.px, p3.py); ctx.lineTo(p4.px, p4.py);
-          ctx.stroke();
+      if (window.innerWidth > 1024) {
+        if (isHovering || Math.abs(currentX) > 0.01 || Math.abs(currentY) > 0.01) {
+          skylineCards.forEach((card, idx) => {
+            const d = depths[idx] || 10;
+            const tx = (currentX * d).toFixed(1);
+            const ty = (currentY * d).toFixed(1);
+            const rotX = (-currentY * 4).toFixed(1);
+            const rotY = (currentX * 4).toFixed(1);
+            card.style.transform = `translate3d(${tx}px, ${ty}px, ${d * 2}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+          });
+        } else if (!isHovering) {
+          skylineCards.forEach(card => {
+            if (card.style.transform !== "") card.style.transform = "";
+          });
         }
       }
 
-      // Draw Glowing Nodes
-      projected.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.px, p.py, 3.5 * p.scale, 0, Math.PI * 2);
-        ctx.fillStyle = "#5fd6ff";
-        ctx.fill();
-        ctx.shadowColor = "#5fd6ff";
-        ctx.shadowBlur = 10;
-      });
-      ctx.shadowBlur = 0;
-
-      requestAnimationFrame(render3DPillars);
+      requestAnimationFrame(animateSkylineParallax);
     }
-    render3DPillars();
+    animateSkylineParallax();
+
+    // GSAP ScrollTrigger staggered entrance for cards
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.from(skylineCards, {
+        opacity: 0,
+        y: 40,
+        scale: 0.94,
+        stagger: 0.15,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: pillarsStandardSection,
+          start: "top 75%",
+          toggleActions: "play none none none"
+        }
+      });
+    }
   }
 
   /* ============================================================

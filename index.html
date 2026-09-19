@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.css">
 
   <!-- Main Styles -->
-  <link rel="stylesheet" href="css/style.css?v=6.4">
+  <link rel="stylesheet" href="css/style.css?v=7.3">
 </head>
 
 <body>
@@ -109,54 +109,90 @@
       </div>
     </header>
 
-    <!-- ============ SECTION 3: BRAND / INTRODUCTION ============ -->
+    <!-- ============ SECTION 3: THE PILLARS STANDARD ============ -->
     <section class="intro-section" id="about">
-      <div class="intro-grid">
-        <div class="intro-left">
+      <!-- Panoramic Background & Atmospheric Scrim -->
+      <div class="pillars-standard-bg-wrapper">
+        <img src="assets/pillars_standard.jpg" alt="The Pillars Standard Architecture" class="pillars-standard-bg-img" loading="lazy">
+        <div class="pillars-standard-scrim"></div>
+      </div>
+
+      <div class="intro-grid pillars-standard-grid">
+        <!-- Left Content Column -->
+        <div class="intro-left pillars-standard-left">
           <div class="section-tag">The Pillars Standard</div>
-          <h2 class="section-title">
-            Where Engineering Precision Meets <span class="text-gradient">Market Dominance</span>
+          <h2 class="section-title pillars-standard-title">
+            Engineering Precision.<br>
+            <span class="text-gradient">Market Dominance.</span>
           </h2>
-          <p class="section-desc" style="text-align: left; margin: 0 0 24px 0;">
+          <p class="section-desc pillars-standard-desc">
             Most growth agencies rely on fragmented tactics. At Digital Pillars, we integrate high-performance Meta Ads,
             rigorous business evaluations, viral social media marketing, iconic brand architecture, and direct
             creator-to-enterprise partnerships into a singular compounding growth engine.
           </p>
-
-          <div class="intro-metrics-list">
-            <div class="glass-card intro-metric-card">
-              <div class="intro-metric-num" data-count="48.5" data-suffix="M+">$0</div>
-              <div class="intro-metric-label">Paid Media Spend Managed</div>
-            </div>
-            <div class="glass-card intro-metric-card">
-              <div class="intro-metric-num" data-count="4.8" data-suffix="x">0.0x</div>
-              <div class="intro-metric-label">Average Verified Client ROAS</div>
-            </div>
-            <div class="glass-card intro-metric-card">
-              <div class="intro-metric-num" data-count="140" data-suffix="+">0</div>
-              <div class="intro-metric-label">High-Growth Campaigns Deployed</div>
-            </div>
-            <div class="glass-card intro-metric-card">
-              <div class="intro-metric-num" data-count="99.9" data-suffix="%">0%</div>
-              <div class="intro-metric-label">Web Infrastructure Reliability</div>
-            </div>
-          </div>
+          <a href="#services" class="pillars-standard-btn">
+            <span>Our Capabilities</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
 
-        <div class="intro-visual-container">
-          <canvas id="intro3DCanvas" class="intro-canvas-3d"></canvas>
-          <div class="intro-visual-overlay">
-            <div>
-              <div class="intro-overlay-title">Dynamic Infrastructure Core</div>
-              <div style="font-size: 0.8rem; color: var(--ink-500);">Live Real-Time Node Telemetry</div>
+        <!-- Right Floating 3D Metric Cards Column -->
+        <div class="pillars-standard-cards-space" id="pillarsStandardCardsSpace">
+          
+          <div class="skyline-metric-card card-top-left" id="skylineCard1">
+            <div class="metric-card-header">
+              <div class="metric-card-val intro-metric-num" data-count="4.8" data-suffix="x">4.8x</div>
+              <div class="metric-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
             </div>
-            <div class="intro-overlay-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-              Optimal State
-            </div>
+            <div class="metric-card-label">Average ROAS</div>
           </div>
+
+          <div class="skyline-metric-card card-bottom-left" id="skylineCard2">
+            <div class="metric-card-header">
+              <div class="metric-card-val intro-metric-num" data-count="48" data-suffix="%">48%</div>
+              <div class="metric-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+            </div>
+            <div class="metric-card-label">Avg. Engagement Increase</div>
+          </div>
+
+          <div class="skyline-metric-card card-top-right" id="skylineCard3">
+            <div class="metric-card-header">
+              <div class="metric-card-val intro-metric-num" data-count="1.2" data-suffix="M+">1.2M+</div>
+              <div class="metric-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+            </div>
+            <div class="metric-card-label">Total Reach</div>
+          </div>
+
+          <div class="skyline-metric-card card-bottom-right" id="skylineCard4">
+            <div class="metric-card-header">
+              <div class="metric-card-val intro-metric-num" data-count="99" data-suffix="%">99%</div>
+              <div class="metric-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="metric-card-label">Client Satisfaction</div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -876,7 +912,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Main Script -->
-  <script src="js/script.js?v=6.4"></script>
+  <script src="js/script.js?v=7.0"></script>
 </body>
 
 </html>
